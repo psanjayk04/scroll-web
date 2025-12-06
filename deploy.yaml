@@ -21,33 +21,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: devops-service
+  name: devops-service-v6
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: my-app
   ports:
-  - port: 80
+  - protocol: TCP
+    port: 80
     targetPort: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: devops-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: micro123.duckdns.org
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: devops-service
-            port:
-              number: 80
+    NodePort: 30326
+
+
 
 
